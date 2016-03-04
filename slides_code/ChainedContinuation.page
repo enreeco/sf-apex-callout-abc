@@ -1,0 +1,16 @@
+<apex:page controller="ChainedContinuationController" action="{!startChainContinuation1}">
+    
+    
+	<h2>Random currency</h2>
+    
+    <apex:messages style="color:red"/>
+    
+    <p>
+        Selected country: {!selectedCountry.name} <br/>
+        Currency: {!selectedCountry.currencies[0]} <br/>
+    </p>
+    <h2>Other countries with the same currency:</h2>
+    <p>
+        {!sameCurrencyCountries}
+    </p>
+</apex:page>

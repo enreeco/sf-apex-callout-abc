@@ -1,17 +1,24 @@
 public class ParallelContinuationController{
-    private String firstLabel;
-    private String secondLabel;
+    @testVisible private String firstLabel;
+    @testVisible private String secondLabel;
     
     public List<DesignQuote> quotes{get;set;}
     
     //class to parse JSON
     public class DesignQuote{
+        public DesignQuote(){
+            
+        }
+        public DesignQuote(String title, String content){
+            this.title = title;
+            this.content = content;
+        }
         public String title{get;set;}
         public String content{get;set;}
     }
     
     public ParallelContinuationController(){
-        this.quotes = new List<DesignQuote>();
+    	this.quotes = new List<DesignQuote>();
     }
     
     public Object startParallelContinuation(){
@@ -33,9 +40,9 @@ public class ParallelContinuationController{
         return cnt;
     }
 
-    public void processParallelContinuation(){
-        HttpResponse response1 = Continuation.getResponse(this.firstLabel);
-        this.quotes.addAll((List<DesignQuote>) JSON.deserialize(response1.getBody(), List<DesignQuote>.class));
+	public void processParallelContinuation(){
+		HttpResponse response1 = Continuation.getResponse(this.firstLabel);
+      	this.quotes.addAll((List<DesignQuote>) JSON.deserialize(response1.getBody(), List<DesignQuote>.class));
 
         HttpResponse response2 = Continuation.getResponse(this.secondLabel);
         this.quotes.addAll((List<DesignQuote>) JSON.deserialize(response2.getBody(), List<DesignQuote>.class));

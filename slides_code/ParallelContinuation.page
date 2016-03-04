@@ -1,5 +1,6 @@
 <apex:page controller="ParallelContinuationController" action="{!startParallelContinuation}">
     <h2>Quotes of the day</h2>
+    <apex:messages style="color:red"/>
 	<hr />
     <apex:repeat var="q" value="{!quotes}">
         <apex:OutputText value="{!q.content}" escape="false" />
