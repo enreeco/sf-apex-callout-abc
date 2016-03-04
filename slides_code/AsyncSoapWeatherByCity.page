@@ -1,0 +1,84 @@
+<apex:page controller="AsyncSoapWeatherByCityController" action="{!loadCountries}"
+           tabStyle="Account" id="thePage" readonly="true">
+    
+    <apex:form id="theForm">
+        <apex:sectionHeader title="Get Weather"/>
+        
+        <!--<apex:pageMessages />-->
+        <apex:messages style="color: red; font-weight: bold;"/>
+        <apex:pageBlock >
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!getWeather}" value="Check weather..." rendered="{!cities.size > 0}"/>
+            </apex:pageBlockButtons>
+
+            <apex:pageBlockSection columns="1">
+                
+                <apex:pageBlockSectionItem >
+                    
+                    <apex:outputLabel value="Select country:" />
+                    <apex:selectList size="1" value="{!selectedCountry}">
+                        <apex:actionSupport action="{!loadCities}" event="onchange" rerender="theForm"/>
+                        <apex:selectOption itemLabel="--" itemValue="" />
+                        <apex:selectOptions value="{!countrySelectOptions}" />
+                    </apex:selectList>
+
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem rendered="{!cities.size > 0}">
+                    <apex:outputLabel value="Select a city:"></apex:outputLabel>
+                    <apex:selectList size="1" value="{!selectedCity}">
+                        <apex:selectOption itemLabel="--" itemValue="" />
+                        <apex:selectOptions value="{!cities}" />
+                    </apex:selectList>    
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+			
+
+            <apex:pageBlockSection columns="2" title="Weather info" rendered="{!NOT(ISNULL(wResult))}">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Location"></apex:outputLabel>
+                    <apex:outputText value="{!wResult.Location}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Time"></apex:outputLabel>
+                    <apex:outputText value="{!wResult.Time_x}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Wind"></apex:outputLabel>
+                    <apex:outputText value="{!wResult.Wind}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Visibility"></apex:outputLabel>
+                    <apex:outputText value="{!wResult.Visibility}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="SkyConditions"></apex:outputLabel>
+                    <apex:outputText value="{!wResult.SkyConditions}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Temperature"></apex:outputLabel>
+                    <apex:outputText value="{!wResult.Temperature}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="DewPoint"></apex:outputLabel>
+                    <apex:outputText value="{!wResult.DewPoint}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="RelativeHumidity"></apex:outputLabel>
+                    <apex:outputText value="{!wResult.RelativeHumidity}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Pressure"></apex:outputLabel>
+                    <apex:outputText value="{!wResult.Pressure}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Status"></apex:outputLabel>
+                    <apex:outputText value="{!wResult.Status}"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+        </apex:pageBlock>
+       
+    </apex:form>
+</apex:page>

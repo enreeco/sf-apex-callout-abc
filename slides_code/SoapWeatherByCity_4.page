@@ -1,0 +1,38 @@
+<apex:page controller="SoapWeatherByCityController" id="thePage" tabStyle="Account" readonly="true">
+    <apex:form id="theForm">
+        <apex:sectionHeader title="Get Weather"/>
+        <apex:pageMessages />
+        
+        <apex:pageBlock >
+            
+            <apex:pageBlockButtons>
+                <apex:commandButton action="{!getWeather}" value="Check weather..." rendered="{!cities.size > 0}"/>
+            </apex:pageBlockButtons>
+            
+            <apex:pageBlockSection columns="1">
+                <apex:pageBlockSectionItem>
+                    <apex:outputLabel>Select country:</apex:outputLabel>
+                    <apex:selectList size="1" value="{!selectedCountry}">
+                        <apex:actionSupport action="{!loadCities}" event="onchange"/>
+                        <apex:selectOption itemLabel="--" itemValue="" />
+                        <apex:selectOption itemLabel="Italy" itemValue="Italy" />
+                        <apex:selectOption itemLabel="India" itemValue="India" />
+                        <apex:selectOption itemLabel="United States" itemValue="United States" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!cities.size > 0}">
+                    <apex:outputLabel>Select a city:</apex:outputLabel>
+                    <apex:selectList size="1" value="{!selectedCity}">
+                        <apex:selectOption itemLabel="--" itemValue="" />
+                        <apex:selectOptions value="{!cities}" />
+                    </apex:selectList>    
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection columns="1" title="Weather info" rendered="{!NOT(ISBLANK(weatherResult))}">
+                <pre>{!weatherResult}</pre>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        
+    </apex:form>
+</apex:page>
